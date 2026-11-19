@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LKPD: Manajemen Server VPS AWS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #222;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 35px 45px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      color: #232f3e;
+      border-bottom: 3px solid #ff9900;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #232f3e;
+      background-color: #eef2f6;
+      padding: 8px 12px;
+      border-left: 5px solid #ff9900;
+      margin-top: 28px;
+      font-size: 1.15rem;
+    }
+    .identitas {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+    }
+    .identitas td {
+      padding: 10px 15px;
+      border: 1px solid #cbd5e1;
+      width: 50%;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .card {
+      border: 1px solid #cbd5e1;
+      border-top: 3px solid #232f3e;
+      border-radius: 6px;
+      padding: 12px 15px;
+      background-color: #fafafa;
+    }
+    .card h3 {
+      margin: 0 0 8px 0;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+    .card p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: #334155;
+    }
+    .checklist {
+      list-style: none;
+      padding-left: 5px;
+    }
+    .checklist li {
+      margin-bottom: 6px;
+    }
+    .info-box {
+      background-color: #fffbeb;
+      border: 1px solid #f59e0b;
+      border-left: 5px solid #f59e0b;
+      padding: 12px 15px;
+      border-radius: 5px;
+      margin: 15px 0;
+      font-size: 0.93rem;
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.93rem;
+    }
+    table.data-table th, table.data-table td {
+      border: 1px solid #cbd5e1;
+      padding: 10px;
+      text-align: left;
+    }
+    table.data-table th {
+      background-color: #232f3e;
+      color: #ffffff;
+    }
+    table.data-table tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    .code-box {
+      background-color: #1e293b;
+      color: #38bdf8;
+      padding: 12px 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      margin: 10px 0;
+    }
+    .highlight {
+      color: #0369a1;
+      font-weight: bold;
+    }
+    .evaluasi {
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #3b82f6;
+      background-color: #f8fafc;
+      padding: 15px;
+      margin-top: 25px;
+      border-radius: 5px;
+    }
+    .ttd {
+      text-align: right;
+      margin-top: 40px;
+      font-style: italic;
+    }
+    @media print {
+      body { background: none; padding: 0; }
+      .container { box-shadow: none; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>LKPD: Manajemen Server VPS AWS</h1>
+
+  <!-- Identitas Siswa -->
+  <table class="identitas">
+    <tr>
+      <td><strong>Nama :</strong> [Isi Nama Lengkap Anda]</td>
+      <td><strong>Tanggal :</strong> 19 November 2026</td>
+    </tr>
+    <tr>
+      <td><strong>Kelas :</strong> [Isi Kelas Anda]</td>
+      <td><strong>Instruktur :</strong> [Isi Nama Guru/Instruktur]</td>
+    </tr>
+  </table>
+
+  <!-- FASE 1 -->
+  <h2>Fase 1: Pengenalan Konsep VPS &amp; Cloud</h2>
+  <p>Pemahaman mengenai perbedaan layanan hosting dan server cloud:</p>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Shared Hosting</h3>
+      <p>Layanan hosting di mana satu server fisik digunakan bersama-sama oleh banyak pengguna. Sumber daya (CPU, RAM) dibagi rata, biaya sangat murah, namun konfigurasi server sangat terbatas.</p>
+    </div>
+    <div class="card">
+      <h3>Dedicated Server</h3>
+      <p>Penyewaan satu unit server fisik secara penuh untuk satu pengguna saja. Performa maksimal dan kontrol penuh, tetapi biaya sewa mahal dan membutuhkan keahlian manajemen server.</p>
+    </div>
+    <div class="card">
+      <h3>Amazon Lightsail</h3>
+      <p>Layanan VPS (Virtual Private Server) dari AWS yang mudah digunakan dengan paket harga bulanan tetap, sudah mencakup penyimpanan SSD, transfer data, dan pengaturan jaringan yang sederhana.</p>
+    </div>
+    <div class="card">
+      <h3>Amazon EC2</h3>
+      <p>Layanan komputasi awan (IaaS) dari AWS yang sangat fleksibel dan skalabel. Pengguna bebas mengatur spesifikasi CPU, RAM, OS, keamanan jaringan (Security Group), dengan sistem bayar sesuai pemakaian.</p>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <h2>Fase 2: Persiapan dan Provisioning Server</h2>
+  <ul class="checklist">
+    <li>&#9745; Mengaktifkan akun AWS dan login ke Management Console.</li>
+    <li>&#9745; Memilih Region AWS terdekat / yang tersedia (misal: <code>us-east-1</code> / <code>ap-southeast-1</code>).</li>
+    <li>&#9745; Memilih Amazon Machine Image (AMI), misalnya Ubuntu 22.04 LTS / Windows Server.</li>
+    <li>&#9745; Memilih Instance Type yang sesuai (misal: <code>t2.micro</code> / <code>t3.micro</code> / <code>t3.large</code>).</li>
+  </ul>
+
+  <div class="info-box">
+    <strong>PENTING: Manajemen Key Pair</strong><br>
+    File berakhiran <code>.pem</code> atau <code>.ppk</code> adalah "kunci rumah" server Anda. Simpan file ini di tempat yang aman.<br><br>
+    <strong>Nama Key Pair yang saya buat :</strong> <span class="highlight">kunci-server.pem</span> <em>(sesuaikan dengan nama file .pem Anda)</em>
+  </div>
+
+  <!-- FASE 3 -->
+  <h2>Fase 3: Jaringan, Keamanan, dan Akses Server</h2>
+  <p>Tabel konfigurasi <strong>Security Group</strong> untuk mengizinkan akses ke server web:</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Tipe Akses</th>
+        <th>Protokol</th>
+        <th>Port Range</th>
+        <th>Source (Sumber)</th>
+        <th>Deskripsi / Kegunaan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>SSH</td>
+        <td>TCP</td>
+        <td><strong>22</strong></td>
+        <td>Anywhere (0.0.0.0/0)</td>
+        <td>Akses remote terminal (Linux)</td>
+      </tr>
+      <tr>
+        <td>HTTP</td>
+        <td>TCP</td>
+        <td><strong>80</strong></td>
+        <td>Anywhere (0.0.0.0/0)</td>
+        <td>Akses website tanpa enkripsi</td>
+      </tr>
+      <tr>
+        <td>HTTPS</td>
+        <td>TCP</td>
+        <td><strong>443</strong></td>
+        <td>Anywhere (0.0.0.0/0)</td>
+        <td>Akses website aman (SSL)</td>
+      </tr>
+      <tr>
+        <td>Custom TCP</td>
+        <td>TCP</td>
+        <td><strong>8080</strong></td>
+        <td>My IP</td>
+        <td>Akses panel admin khusus</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Perintah lengkap di terminal lokal untuk mengakses server melalui SSH:</strong></p>
+  <div class="code-box">
+    ssh -i "kunci-server.pem" ubuntu@54.166.233.79
+  </div>
+
+  <!-- FASE 4 -->
+  <h2>Fase 4: Konfigurasi Sistem Operasi &amp; Web Server</h2>
+  <p>Pasangan perintah Linux dengan fungsi yang tepat:</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Perintah Linux</th>
+        <th>Jawaban</th>
+        <th>Keterangan Fungsi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><code>sudo apt update</code></td>
+        <td><strong>( C )</strong></td>
+        <td>Memperbarui daftar paket repositori OS.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><code>sudo systemctl restart apache2</code></td>
+        <td><strong>( D )</strong></td>
+        <td>Memuat ulang layanan web server.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><code>ls -la</code></td>
+        <td><strong>( A )</strong></td>
+        <td>Menampilkan seluruh file termasuk yang tersembunyi.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><code>chmod 400 key.pem</code></td>
+        <td><strong>( B )</strong></td>
+        <td>Mengubah hak akses file menjadi read-only.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Tugas Praktik Web Server:</strong><br>
+  Alamat IP Publik Server saya : <span class="highlight">http://54.166.233.79</span></p>
+
+  <!-- FASE 5 -->
+  <h2>Fase 5: Deployment Aplikasi dan Domain</h2>
+  <p>Tabel konfigurasi <strong>DNS Record (A-Record)</strong> untuk mengarahkan domain ke IP Publik AWS:</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Tipe Record</th>
+        <th>Name / Host</th>
+        <th>Value / Target (IP AWS)</th>
+        <th>TTL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>A</td>
+        <td>@ (atau namadomain.com)</td>
+        <td><strong>54.166.233.79</strong></td>
+        <td>Auto / 3600</td>
+      </tr>
+      <tr>
+        <td>A (atau CNAME)</td>
+        <td>www</td>
+        <td><strong>54.166.233.79</strong> <em>(atau namadomain.com)</em></td>
+        <td>Auto / 3600</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Checklist Deployment Akhir:</strong></p>
+  <ul class="checklist">
+    <li>&#9745; Mengunggah file website menggunakan SFTP (FileZilla/Cyberduck) atau Git ke direktori web.</li>
+    <li>&#9745; Memastikan propagasi DNS selesai (domain dapat diakses di browser).</li>
+    <li>&#9745; Menginstal Let's Encrypt (Certbot) dan mengaktifkan HTTPS.</li>
+  </ul>
+
+  <!-- FASE 6 -->
+  <h2>Fase 6: Manajemen, Monitoring &amp; Backup</h2>
+  <p><strong>Catat Metrik Server Saat Ini (CloudWatch):</strong></p>
+  <ul>
+    <li><strong>Rata-rata CPU Utilization :</strong> <span class="highlight">1.5 %</span> <em>(sesuaikan dengan grafik Monitoring di AWS Anda)</em></li>
+    <li><strong>Status Check Failed :</strong> <span class="highlight">0</span> (3/3 pemeriksaan lulus)</li>
+  </ul>
+
+  <p><strong>Langkah Backup (Snapshot):</strong></p>
+  <ol>
+    <li>Buka menu <strong>Volumes</strong> di konsol EC2.</li>
+    <li>Pilih Volume server Anda.</li>
+    <li>Klik <strong>Actions &gt; Create Snapshot</strong>.</li>
+    <li>Beri deskripsi dan simpan.</li>
+  </ol>
+
+  <!-- Evaluasi -->
+  <div class="evaluasi">
+    <strong>Catatan &amp; Evaluasi Instruktur</strong>
+    <div class="ttd">Tanda Tangan Instruktur: _______________________</div>
+  </div>
+</div>
+
+</body>
+</html>
